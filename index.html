@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Антон Л. - Java Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;700&family=Rajdhani:wght@400;600&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Если будете использовать иконки FontAwesome, добавьте ссылку -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
+</head>
+<body>
+    <canvas id="starfield"></canvas>
+
+    <div class="container">
+        <header class="hero">
+            <div class="hero-avatar-code-terminal" id="codeAvatar">
+                <pre><code id="avatarCodeLines"></code></pre>
+                <div class="avatar-caret"></div>
+            </div>
+            <h1>Антон Л.</h1>
+            <h2 class="typing-effect-title">Java Developer / Творец Цифровых Реальностей</h2>
+            <p class="tagline">Кодирую вселенные, одну строку за другой, погружаясь в потоки данных и энергии.</p>
+        </header>
+
+        <section id="skill-scrolls" class="content-section skill-section">
+            <h3 class="section-title"><span>Скрижали Древних Техник</span></h3>
+            <div class="scroll-container" id="scrollContainer">
+                <!-- Категории навыков будут генерироваться здесь JS -->
+                <!-- Пример структуры генерируемой JS:
+                <div class="skill-scroll">
+                    <div class="scroll-header">
+                        <span class="scroll-icon">📜</span>
+                        <h4 class="scroll-category-title">ИСТОКИ СИЛЫ: ЯЗЫКИ ПРОГРАММИРОВАНИЯ</h4>
+                    </div>
+                    <div class="scroll-content">
+                        <p class="scroll-comment">// Пробуждение Энергии: Основы</p>
+                        <ul class="technique-list">
+                            <li>
+                                <span class="technique-name">Техника Нефритового Императора (Java)</span>
+                                <span class="technique-level">[Уровень: Мастер Великого Дао]</span>
+                                <p class="technique-details">// Владение Сущностями и Потоками</p>
+                            </li>
+                            ...
+                        </ul>
+                    </div>
+                </div>
+                -->
+            </div>
+        </section>
+
+        <section id="education" class="content-section info-section">
+            <h3 class="section-title"><span>Путь Познания: Образование</span></h3>
+            <div class="info-card">
+                <p class="institution">Прокопьевский горнотехнический техникум имени В. П. Романова</p>
+                <p class="specialty">Информационные системы и программирование</p>
+                <p class="degree">Среднее специальное образование</p>
+            </div>
+            <div class="info-card">
+                <p class="institution">Астон Образование</p>
+                <p class="specialty">Java Developer</p>
+                <p class="degree">Курс - 240 академических часов [Java/Kotlin/Spring/Docker/Kubernetes/Hibernate/PostgreSQL/MongoDB/Redis]</p>
+            </div>
+        </section>
+
+        <section id="languages" class="content-section info-section">
+            <h3 class="section-title"><span>Языки Миров: Иностранные Языки</span></h3>
+            <div class="language-grid">
+                <div class="language-card">
+                    <h4>Английский</h4>
+                    <p class="language-level">B1 (Intermediate)</p>
+                    <p class="random-word" id="randomWordEnglish">...</p> 
+                </div>
+                <div class="language-card">
+                    <h4>Испанский</h4>
+                    <p class="language-level">A2 (Elementary)</p>
+                    <p class="random-word" id="randomWordSpanish">...</p>
+                </div>
+                <div class="language-card">
+                    <h4>Японский</h4>
+                    <p class="language-level">N5 (Beginner)</p>
+                    <p class="random-word" id="randomWordJapanese">...</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="realms" class="content-section project-git-graph-section">
+            <h3 class="section-title"><span>Древо Коммитов: Хроники Создания</span></h3>
+            <div class="git-graph-container">
+                <svg id="projectGitGraph" width="100%" height="600px">
+                    <!-- Линии и точки будут нарисованы JS -->
+                </svg>
+                <div id="projectGitNodes" class="project-node-annotations">
+                    <!-- Описания проектов (аннотации к узлам) будут добавляться JS -->
+                </div>
+            </div>
+             <div class="git-graph-legend">
+                <div class="legend-item"><span class="legend-color main-branch-color"></span> Основная ветка (Опыт)</div>
+                <div class="legend-item"><span class="legend-color active-project-color"></span> Активный проект</div>
+                <div class="legend-item"><span class="legend-color completed-project-color"></span> Завершенный проект</div>
+            </div>
+        </section>
+
+        <footer id="nexus" class="content-section">
+            <h3 class="section-title"><span>Узлы Связи</span></h3>
+            <p>Нету</p>
+            <div class="social-links"></div>
+            <p class="copyright">© <span id="currentYear"></span> Антон Л. Вселенные защищены кодом.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
