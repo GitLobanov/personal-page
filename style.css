@@ -12,18 +12,33 @@
     --border-radius: 8px;
     --card-shadow-accent: rgba(252, 163, 17, 0.2); 
     --card-shadow-teal: rgba(100, 255, 218, 0.15);
+     --bg-secondary-rgb: 10, 25, 47; /* RGB для --bg-secondary (#0A192F) */
+    --hologram-glow-color: var(--accent-teal); /* Основной цвет свечения голограммы */
+    --hologram-glow-color-rgb: 100, 255, 218; /* RGB для --accent-teal */
+    --hologram-text-glow-color: rgba(var(--hologram-glow-color-rgb), 0.7);
+    --hologram-border-color: rgba(var(--hologram-glow-color-rgb), 0.4);
+    --hologram-scanline-color: rgba(var(--hologram-glow-color-rgb), 0.04); /* Очень тонкие линии */
+}
 }
 
-/* ... (Существующие стили до .section-title span::after остаются такими же) ... */
-body, #starfield, .container, .hero, .hero-avatar-placeholder, .hero h1, .hero h2, .hero .tagline, .content-section, .section-title, .section-title span, .section-title span::after {
-    /* Эти стили остаются как в предыдущей версии с новой палитрой */
+html {
+    height: 100%;
+    /* Prevent transform on html from breaking fixed positioning of children */
+    transform: none !important; 
+    -webkit-transform: none !important; /* For older Safari compatibility */
 }
+
 body {
     font-family: var(--body-font);
     background-color: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.7;
     overflow-x: hidden; 
+    min-height: 100%; 
+    margin: 0; 
+    /* Prevent transform on body from breaking fixed positioning of children */
+    transform: none !important;
+    -webkit-transform: none !important; /* For older Safari compatibility */
 }
 
 #starfield {
@@ -40,34 +55,38 @@ body {
     margin: 0 auto;
     padding: 20px;
     position: relative; 
-    z-index: 1;
+    z-index: 1; /* This creates a stacking context for its children */
 }
 
 .hero {
     text-align: center;
-    padding: 40px 20px; /* Уменьшил паддинг сверху, т.к. аватар стал больше */
+    padding: 60px 20px 40px;
     margin-bottom: 40px;
-    border-bottom: 1px solid rgba(100, 255, 218, 0.2); 
+    border-bottom: 1px solid rgba(100, 255, 218, 0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Новый стиль для аватара с кодом */
 .hero-avatar-code-terminal {
-    width: 70%;  /* Размер аватара */
-    height: 150px;
-    margin: 0 auto 25px auto; /* Отступ снизу увеличен */
+    width: 60%;
+    max-width: 450px;
+    height: 130px;
+    margin: 0 auto 20px auto;
     position: relative;
-    overflow: hidden; /* Чтобы код не вылезал за круг */
-    padding: 10px; /* Внутренний отступ */
+    overflow: hidden;
+    padding: 10px;
     display: flex;
-    flex-direction: column; /* Строки кода будут идти сверху вниз */
-    justify-content: flex-end; /* Новые строки появляются снизу */
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 .hero-avatar-code-terminal pre {
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Важно, чтобы текст обрезался, а не переносился */
-    flex-grow: 1; /* Занимает все доступное место */
+    overflow: hidden; 
+    flex-grow: 1; 
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -76,12 +95,12 @@ body {
 .hero-avatar-code-terminal code {
     font-family: var(--code-font);
     line-height: 1.3;
-    color: var(--text-primary); /* Светлый текст кода */
-    white-space: nowrap; /* Код не переносится */
-    display: block; /* Каждая строка - блок */
-    opacity: 0; /* Начальная прозрачность для анимации появления */
+    color: var(--text-primary); 
+    white-space: nowrap; 
+    display: block; 
+    opacity: 0; 
     animation: fadeInLine 0.5s forwards;
-    margin-bottom: 2px; /* Небольшой отступ между строками кода */
+    margin-bottom: 2px; 
 }
 
 .hero-avatar-code-terminal code.old-line {
@@ -90,7 +109,7 @@ body {
 
 @keyframes fadeInLine {
     from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 0.8; transform: translateY(0); } /* Неполная прозрачность для "старых" строк */
+    to { opacity: 0.8; transform: translateY(0); } 
 }
 @keyframes fadeOutLine {
     from { opacity: 0.8; }
@@ -98,17 +117,49 @@ body {
 }
 
 .hero-avatar-code-terminal code.new-line {
-    opacity: 1; /* Новая строка полностью видима */
-    color: var(--accent-teal); /* Новая строка подсвечивается бирюзой */
+    opacity: 1; 
+    color: var(--accent-teal); 
+}
+
+.hero-name {
+    font-family: var(--heading-font);
+    font-size: 1.5em; /* Размер для имени */
+    font-weight: 400;
+    color: var(--text-secondary); /* Менее яркий, чем основной заголовок */
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.hero-main-title {
+    font-family: 'Exo 2', sans-serif; /* Убедимся, что используем Exo 2 */
+    font-weight: 900; /* Очень жирный */
+    font-size: clamp(3.5em, 10vw, 7em); /* Адаптивный размер шрифта: мин, желаемый (зависит от ширины), макс */
+    line-height: 1.0; /* Сближаем строки */
+    color: var(--text-primary);
+    text-transform: uppercase; /* Все буквы заглавные */
+    margin: 0 0 15px 0; /* Отступы */
+    letter-spacing: 1px; /* Небольшой трекинг */
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3); /* Легкая тень для объема */
+}
+
+.hero-main-title .hero-title-backend,
+.hero-main-title .hero-title-developer {
+    display: block; /* Каждое слово на новой строке */
+}
+
+.hero-main-title .hero-title-developer {
+    /* Можно добавить небольшой акцент на второе слово, если хочется */
+    /* color: var(--accent-teal); */
+    /* text-shadow: 0 0 10px var(--accent-teal); */
 }
 
 
-.avatar-caret { /* Мигающий курсор в аватаре */
+.avatar-caret { 
     width: 5px;
-    height: 0.7em; /* Высота курсора относительно шрифта кода */
-    background-color: var(--accent-orange); /* Оранжевый курсор */
-    align-self: flex-start; /* Курсор в начале строки */
-    margin-top: 1px; /* Небольшой отступ сверху */
+    height: 0.7em; 
+    background-color: var(--accent-orange); 
+    align-self: flex-start; 
+    margin-top: 1px; 
     animation: blinkCaretAvatar 0.9s step-end infinite;
 }
 
@@ -136,10 +187,20 @@ body {
 }
 
 .hero .tagline {
-    font-size: 1.1em;
-    color: var(--text-secondary); 
-    max-width: 600px;
-    margin: 0 auto;
+    font-size: clamp(0.9em, 2.5vw, 1.1em);
+    color: var(--text-secondary);
+    max-width: 650px;
+    margin: 0 auto 30px auto;
+    line-height: 1.7;
+}
+
+.hero h2.typing-effect-title {
+    font-family: var(--heading-font);
+    font-size: clamp(1.4em, 4vw, 1.9em);
+    font-weight: 300;
+    color: var(--accent-teal);
+    margin-bottom: 25px;
+    letter-spacing: 1.5px;
 }
 
 .content-section {
@@ -181,125 +242,100 @@ body {
 }
 
 /* SKILL SCROLLS SECTION */
-.skill-section .section-title span::after { /* Немного другой акцент для этого заголовка */
+.skill-section .section-title span::after {
     background: var(--accent-teal);
     box-shadow: 0 0 10px var(--card-shadow-teal);
 }
 
-.scroll-container {
+.scroll-container { 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Компактное размещение */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 25px;
 }
 
-.skill-scroll {
-    background-color: var(--bg-code-block);
+.skill-card {
+    background-color: var(--bg-code-block); 
     border-radius: var(--border-radius);
-    border: 1px solid var(--accent-teal);
-    padding: 20px;
-    box-shadow: 0 0 10px var(--card-shadow-teal);
-    opacity: 0; /* For fade-in animation */
-    transform: translateY(20px); /* For fade-in animation */
-    animation: fadeInScroll 0.5s ease-out forwards;
-    /* transition: max-height 0.5s ease-in-out, opacity 0.5s ease; */ /* Для аккордеона */
-    /* max-height: 100px; */ /* Начальная высота для "свернутого" состояния */
-    /* overflow: hidden; */
+    padding: 20px 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInScroll 0.5s ease-out forwards; 
+    display: flex;
+    flex-direction: column;
 }
-/* .skill-scroll.open {
-    max-height: 1000px; /* Достаточно большая высота для раскрытия 
-} */
 
-
-@keyframes fadeInScroll {
+@keyframes fadeInScroll { 
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-
-.scroll-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    cursor: default; /* или pointer, если будет аккордеон */
-    border-bottom: 1px solid rgba(100, 255, 218, 0.2);
-    padding-bottom: 10px;
+.skill-card-header {
+    margin-bottom: 10px;
 }
 
-.scroll-icon {
-    font-size: 1.8em;
-    margin-right: 15px;
-    color: var(--accent-orange);
-    /* Пример если используете FontAwesome:
-    font-family: "Font Awesome 6 Free"; 
-    font-weight: 900; */
-}
-
-.scroll-category-title {
+.skill-card-title {
     font-family: var(--heading-font);
-    font-size: 1.4em;
-    color: var(--accent-teal);
+    font-size: 1.5em; 
+    color: var(--text-primary); 
     font-weight: 600;
 }
 
-.scroll-content {
-    /* padding-left: 10px; */ /* Если нужен отступ для контента */
-}
-
-.scroll-comment {
-    font-family: var(--code-font);
+.skill-card-description {
+    font-family: var(--body-font);
     color: var(--text-secondary);
-    font-style: italic;
-    font-size: 0.85em;
-    margin-bottom: 10px;
-    display: block;
+    font-size: 0.9em;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    flex-grow: 1; 
 }
 
-.technique-list {
-    list-style: none;
-    padding-left: 0;
+.skill-card-tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; 
+    margin-top: auto; 
 }
 
-.technique-list li {
-    margin-bottom: 12px;
+.tech-item {
     font-family: var(--code-font);
-    font-size: 0.9em;
-}
-
-.technique-name { /* Анимация набора текста будет здесь */
-    color: var(--text-primary);
-    display: block; /* Для анимации набора */
-    min-height: 1.2em; /* Чтобы не прыгало при наборе */
-}
-
-.technique-level {
-    color: var(--accent-orange);
-    font-style: italic;
-    font-size: 0.9em;
-    padding-left: 1em; /* Небольшой отступ для уровня */
-    display: block;
-    min-height: 1.1em;
-}
-.technique-details {
-    color: var(--text-secondary);
-    font-style: italic;
     font-size: 0.85em;
-    padding-left: 1em; 
-    display: block;
+    padding: 6px 12px;
+    border-radius: 16px; 
+    display: inline-flex; 
+    align-items: center;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+.tech-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-
-/* INFO SECTIONS (Образование, Языки) */
-.info-section {
-    /* Uses .content-section styles */
+.tech-item-icon {
+    background-color: rgba(229, 229, 229, 0.05); 
+    border: 1px solid var(--text-secondary); 
+    color: var(--text-secondary); 
 }
+
+.tech-item-icon i {
+    font-size: 1.3em; 
+    margin-right: 8px;
+}
+
+.tech-item-pill {
+    background-color: var(--accent-teal); 
+    color: var(--bg-primary); 
+    font-weight: 500;
+}
+
 .info-section .section-title span::after {
     background: var(--accent-orange);
     box-shadow: 0 0 10px var(--card-shadow-accent);
 }
 
-.info-card { /* Для блока образования */
+.info-card { 
     background-color: var(--bg-code-block);
     padding: 20px;
     border-radius: var(--border-radius);
@@ -335,29 +371,10 @@ body {
     text-align: center;
     border-bottom: 3px solid var(--accent-teal);
     box-shadow: 0 3px 10px var(--card-shadow-teal);
-}
-.language-card h4 {
-    font-family: var(--heading-font);
-    font-size: 1.3em;
-    color: var(--accent-orange);
-    margin-bottom: 8px;
-}
-.language-card .language-level {
-    font-size: 1em;
-    color: var(--text-primary);
-}
-
-.language-card {
-    background-color: var(--bg-code-block);
-    padding: 20px;
-    border-radius: var(--border-radius);
-    text-align: center;
-    border-bottom: 3px solid var(--accent-teal);
-    box-shadow: 0 3px 10px var(--card-shadow-teal);
-    display: flex; /* Для лучшего управления внутренними элементами */
+    display: flex; 
     flex-direction: column;
-    justify-content: space-between; /* Чтобы слово было внизу, если карточка высокая */
-    min-height: 150px; /* Минимальная высота карточки */
+    justify-content: space-between; 
+    min-height: 150px; 
 }
 .language-card h4 {
     font-family: var(--heading-font);
@@ -368,22 +385,22 @@ body {
 .language-card .language-level {
     font-size: 1em;
     color: var(--text-primary);
-    margin-bottom: 15px; /* Отступ перед случайным словом */
+    margin-bottom: 15px; 
 }
 
 .random-word {
-    font-family: var(--code-font); /* Моноширинный для "технического" вида */
+    font-family: var(--code-font); 
     font-size: 1.1em;
-    color: var(--accent-teal); /* Бирюзовый для слова */
-    margin-top: auto; /* Прижимает слово к низу, если карточка растягивается */
+    color: var(--accent-teal); 
+    margin-top: auto; 
     padding-top: 10px;
-    border-top: 1px dashed rgba(100, 255, 218, 0.3); /* Разделитель */
-    min-height: 1.5em; /* Чтобы не прыгало при смене слова */
+    border-top: 1px dashed rgba(100, 255, 218, 0.3); 
+    min-height: 1.5em; 
     font-weight: bold;
     letter-spacing: 1px;
-    opacity: 0; /* Начальная прозрачность для анимации */
-    transform: translateY(10px); /* Начальное смещение для анимации */
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* Плавный переход */
+    opacity: 0; 
+    transform: translateY(10px); 
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out; 
 }
 
 .random-word.visible {
@@ -412,7 +429,6 @@ body {
     50% { border-color: var(--accent-teal); }
 }
 
-/* PROJECTS TIMELINE SECTION - Адаптация цветов */
 .projects-timeline-section {
     /* Uses .content-section styles */
 }
@@ -429,7 +445,7 @@ body {
     left: 20px; 
     bottom: 0;
     width: 4px;
-    background: linear-gradient(var(--accent-orange), var(--accent-teal)); /* Градиент для линии */
+    background: linear-gradient(var(--accent-orange), var(--accent-teal)); 
     border-radius: 2px;
     box-shadow: 0 0 10px var(--card-shadow-accent);
 }
@@ -450,8 +466,8 @@ body {
     top: 0; 
     width: 44px; 
     height: 44px;
-    background-color: var(--bg-secondary); /* Фон маркера */
-    border: 3px solid var(--accent-orange); /* Оранжевая рамка маркера */
+    background-color: var(--bg-secondary); 
+    border: 3px solid var(--accent-orange); 
     border-radius: 50%;
     z-index: 1;
     box-shadow: 0 0 15px var(--card-shadow-accent);
@@ -463,7 +479,7 @@ body {
     content: '';
     width: 12px;
     height: 12px;
-    background-color: var(--accent-teal); /* Бирюзовая точка внутри */
+    background-color: var(--accent-teal); 
     border-radius: 50%;
     box-shadow: 0 0 8px var(--card-shadow-teal);
 }
@@ -475,8 +491,8 @@ body {
     top: 50px; 
     transform: translateX(-50%) rotate(-90deg);
     transform-origin: left center;
-    background-color: var(--accent-orange); /* Оранжевый фон для года */
-    color: var(--bg-secondary); /* Темный текст */
+    background-color: var(--accent-orange); 
+    color: var(--bg-secondary); 
     padding: 3px 8px;
     border-radius: 4px;
     font-size: 0.8em;
@@ -489,7 +505,7 @@ body {
 .timeline-content.project-card { 
     background: var(--bg-secondary);
     border-radius: var(--border-radius);
-    border: 1px solid rgba(100, 255, 218, 0.2); /* Легкая бирюзовая рамка */
+    border: 1px solid rgba(100, 255, 218, 0.2); 
     padding: 0; 
     display: flex; 
     overflow: hidden; 
@@ -509,12 +525,12 @@ body {
 .project-card-image {
     flex-basis: 250px; 
     min-width: 200px; 
-    background-color: var(--bg-code-block); /* Темный фон для области изображения */
+    background-color: var(--bg-code-block); 
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    border-left: 2px solid var(--accent-orange); /* Оранжевый разделитель */
+    border-left: 2px solid var(--accent-orange); 
 }
 
 .project-card-image img {
@@ -540,7 +556,7 @@ body {
 .timeline-content.project-card h4 {
     font-family: var(--heading-font);
     font-size: 1.5em; 
-    color: var(--accent-orange); /* Оранжевый для заголовков проектов */
+    color: var(--accent-orange); 
     margin-bottom: 8px;
 }
 
@@ -556,160 +572,246 @@ body {
     color: var(--text-primary);
 }
 
-/* PROJECT GIT GRAPH SECTION */
 .project-git-graph-section .section-title span::after {
-    background: linear-gradient(90deg, var(--accent-orange), var(--accent-teal)); /* Смешанный акцент */
+    background: linear-gradient(90deg, var(--accent-orange), var(--accent-teal)); 
 }
 
 .git-graph-container {
     position: relative;
-    min-height: 500px;
     padding: 20px;
 }
 
 #projectGitGraph {
-    display: block; /* Убирает лишнее пространство под SVG */
-}
-
-/* Стили для SVG элементов (будут задаваться через JS атрибуты, но можно задать общие) */
-#projectGitGraph .branch-line {
-    stroke-width: 3px;
-    fill: none;
-    transition: stroke-dashoffset 1s ease-in-out; /* Для анимации рисования линии */
-}
-
-#projectGitGraph .main-branch {
-    stroke: var(--accent-teal); /* Основная ветка бирюзовая */
-}
-
-#projectGitGraph .project-branch-active {
-    stroke: var(--accent-orange); /* Активные проекты оранжевые */
-}
-
-#projectGitGraph .project-branch-completed {
-    stroke: var(--text-secondary); /* Завершенные проекты серо-голубые */
-}
-
-#projectGitGraph .commit-node {
-    r: 6px; /* Радиус точки коммита */
-    transition: opacity 0.5s, transform 0.5s;
-    cursor: pointer;
-}
-#projectGitGraph .commit-node:hover {
-    r: 8px;
-}
-
-#projectGitGraph .commit-node.main-commit {
-    fill: var(--accent-teal);
-}
-#projectGitGraph .commit-node.project-commit-active {
-    fill: var(--accent-orange);
-    stroke: var(--bg-code-block); /* Обводка в цвет фона для выделения */
-    stroke-width: 2px;
-}
-#projectGitGraph .commit-node.project-commit-completed {
-    fill: var(--text-secondary);
-    stroke: var(--bg-code-block);
-    stroke-width: 2px;
-}
-
-
-.project-node-annotations { /* Контейнер для текстовых аннотаций */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Чтобы не мешать SVG */
-}
-
-.project-git-node-info {
-    position: absolute;
-    background-color: rgba(10, 25, 47, 0.92); 
-    color: var(--text-primary);
-    padding: 8px 12px; 
-    border-radius: var(--border-radius);
-    border: 1px solid var(--accent-orange);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-    font-family: var(--body-font);
-    font-size: 0.85em;
-    width: 200px; 
-    opacity: 0; 
-    transform: scale(0.9);
-    /* Добавляем max-height в transition для плавного раскрытия */
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out, 
-                width 0.3s ease-out, padding 0.3s ease-out, 
-                max-height 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
-    pointer-events: auto; 
-    z-index: 10;
-    overflow: hidden; 
-    max-height: 60px; /* Начальная высота, достаточная для заголовка и дат */
-}
-
-/* Класс .visible управляется JS для начального появления */
-.project-git-node-info.visible {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.project-git-node-info .node-summary {
-    /* Стиль для всегда видимой части */
-    cursor: pointer; /* Показываем, что на эту часть можно кликнуть */
-}
-
-.project-git-node-info .node-summary h4 {
-    font-family: var(--heading-font);
-    color: var(--accent-orange);
-    font-size: 1.1em;
-    margin-bottom: 3px;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; 
-}
-.project-git-node-info .project-dates {
-    font-size: 0.9em;
-    color: var(--text-secondary);
-    font-style: italic;
     display: block; 
 }
 
-.project-git-node-info .node-description {
+#projectGitGraph .branch-line {
+    stroke-width: 2.5px;
+    fill: none;
+    transition: stroke-dashoffset 1s ease-in-out; 
+}
+
+#projectGitGraph .main-branch {
+    stroke: var(--accent-teal); 
+}
+
+#projectGitGraph .project-branch-active {
+    stroke: var(--accent-orange); 
+}
+
+#projectGitGraph .project-branch-completed {
+    stroke: var(--text-secondary); 
+}
+
+#projectGitGraph .commit-node {
+    r: 6px; 
+    transition: opacity 0.5s, transform 0.5s, r 0.3s ease;
+    cursor: pointer;
+}
+
+#projectGitGraph .commit-node:hover { 
+    r: 9px;
+}
+
+#projectGitGraph .commit-node.active-commit-node { 
+    r: 10px; /* Make active node even slightly larger or distinct */
+    stroke: var(--accent-teal); /* Bright stroke to highlight */
+    stroke-width: 2.5px;
+    filter: drop-shadow(0 0 6px var(--accent-teal)); 
+}
+
+.project-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    /* Затемнение фона с эффектом размытия (если поддерживается) */
+    background-color: rgba(var(--bg-secondary-rgb), 0.65); /* Более плотное затемнение */
+    -webkit-backdrop-filter: blur(4px) brightness(0.6); /* Размытие для WebKit */
+    backdrop-filter: blur(4px) brightness(0.6);         /* Стандартное размытие */
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    /* perspective: 1000px; (Можно добавить для более сложных 3D-анимаций появления, если нужно) */
+}
+
+.project-modal-content {
+    background-color: rgb(10 25 47 / 0%);
     color: var(--text-primary);
-    margin-top: 0; /* Убираем пока, т.к. max-height = 0 */
-    line-height: 1.4;
+    padding: 25px 30px;
+    border: 1px solid var(--hologram-border-color);
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto; /* Для прокрутки контента, если он не помещается */
+    overflow-x: hidden; /* Предотвратить горизонтальную прокрутку от псевдо-элементов */
     opacity: 0;
-    /* max-height: 0;  Управляется родительским .project-git-node-info.expanded */
-    transition: opacity 0.3s ease-in-out 0.1s, margin-top 0.3s ease-in-out 0.1s; /* Задержка, чтобы появилось после расширения */
-    /* overflow: hidden; - уже на родительском */
+    transform: scale(0.9) translateY(30px) rotateX(-10deg); /* Начальное состояние для анимации */
+    transform-origin: center center;
+    transition: opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 1;
 }
 
-.project-git-node-info.expanded {
-    width: 250px; 
-    padding: 12px 18px; 
-    background-color: rgba(10, 25, 47, 0.98); 
-    z-index: 11; 
-    max-height: 300px; /* Достаточная высота для показа описания + заголовка */
-}
-
-.project-git-node-info.expanded .node-description {
+/* Когда модальное окно отображается (JS добавляет display: flex) */
+.project-modal[style*="display: flex"] .project-modal-content {
     opacity: 1;
-    margin-top: 8px; 
+    transform: scale(1) translateY(0) rotateX(0deg);
+}
+
+/* Линии сканирования */
+.project-modal-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: repeating-linear-gradient(
+        transparent,
+        transparent 2px, /* Прозрачная часть линии */
+        var(--hologram-scanline-color) 2px, /* Цвет линии */
+        var(--hologram-scanline-color) 3px  /* Толщина линии (1px) */
+    );
+    background-size: 100% 3px; /* Расстояние между линиями */
+    opacity: 0.7;
+    pointer-events: none; /* Чтобы не мешало кликам */
+    z-index: -1; /* Позади основного контента модалки */
+    animation: hologram-scanmove 20s linear infinite; /* Анимация движения линий */
+}
+
+@keyframes hologram-scanmove {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 -100px; } /* Движение вверх */
 }
 
 
-/* Стили для SVG коммитов остаются, cursor: pointer важен */
+/* Стилизация текста и элементов внутри модального окна */
+.project-modal-close {
+    color: var(--hologram-glow-color);
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 32px; /* Немного больше для "технологичного" вида */
+    font-weight: bold;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    text-shadow: 0 0 10px var(--hologram-glow-color);
+    z-index: 10;
+    cursor: pointer;
+}
+
+.project-modal-close:hover,
+.project-modal-close:focus {
+    color: var(--accent-orange); /* Яркий акцент при наведении */
+    text-shadow: 0 0 12px var(--accent-orange);
+    transform: scale(1.1); /* Небольшое увеличение */
+}
+
+.project-modal-content h3 { /* Заголовок проекта */
+    font-family: var(--heading-font);
+    color: var(--accent-orange); /* Оставляем оранжевый для главного акцента */
+    font-size: 2.2em;
+    margin-top: 0;
+    margin-bottom: 5px;
+    text-shadow: 0 0 12px rgba(252, 163, 17, 0.6), 0 0 6px rgba(252, 163, 17, 0.4);
+}
+
+.project-modal-content .project-dates {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    font-style: italic;
+    text-shadow: 0 0 5px var(--hologram-text-glow-color);
+}
+
+.project-modal-details {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 15px;
+}
+
+.project-modal-image-container {
+    flex: 1;
+    min-width: 200px;
+    max-width: 350px;
+    padding: 5px; 
+    background-color: rgba(var(--bg-secondary-rgb), 0.3); 
+    border-radius: calc(var(--border-radius) / 2);
+}
+
+.project-modal-image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: calc(var(--border-radius) / 3);
+    border: none; /* Убираем рамку с самого img, т.к. есть у контейнера */
+    object-fit: contain;
+    max-height: 300px;
+    opacity: 0.9; /* Немного прозрачности для картинки */
+    mix-blend-mode: screen; /* Эксперимент: может дать интересный эффект с полупрозрачным фоном */
+    /* Если mix-blend-mode не нравится, можно убрать или заменить на 'lighten' */
+}
+
+.project-modal-info {
+    flex: 1.5;
+}
+
+.project-modal-info h4 {
+    font-family: var(--heading-font);
+    color: var(--hologram-glow-color);
+    font-size: 1.3em;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.project-modal-info p { /* Текст описания */
+    font-size: 0.95em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+    text-shadow: 0 0 4px rgba(229, 229, 229, 0.2); /* Очень легкое свечение для читаемости */
+}
+
+.tech-pills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tech-pill {
+    background-color: transparent; /* Прозрачный фон */
+    border: 1px solid var(--hologram-glow-color);
+    color: var(--hologram-glow-color); /* Текст цвета свечения */
+    padding: 5px 12px;
+    border-radius: 16px; /* Более округлые */
+    font-size: 0.85em;
+    font-family: var(--code-font);
+    text-shadow: 0 0 5px var(--hologram-text-glow-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.tech-pill:hover {
+    background-color: var(--hologram-glow-color);
+    color: var(--bg-primary); /* Цвет текста при наведении для контраста */
+    text-shadow: none;
+}
+
 #projectGitGraph .commit-node {
     r: 6px; 
     transition: opacity 0.5s, transform 0.5s, r 0.3s ease; 
     cursor: pointer;
 }
-#projectGitGraph .commit-node:hover { /* Можно оставить ховер для SVG узла для визуальной обратной связи */
+#projectGitGraph .commit-node:hover { 
     r: 9px; 
 }
-#projectGitGraph .commit-node.active-commit-node { /* Для выделения активного коммита */
+#projectGitGraph .commit-node.active-commit-node { 
     r: 9px;
-    stroke: var(--accent-teal); /* Дополнительная обводка для активного */
+    stroke: var(--accent-teal); 
     stroke-width: 2.5px;
     filter: drop-shadow(0 0 5px var(--accent-teal));
 }
@@ -762,7 +864,6 @@ footer {
     color: var(--text-secondary);
 }
 
-/* Responsive Adjustments */
 @media (max-width: 768px) {
     .hero h1 { font-size: 2.8em; }
     .hero h2 {
@@ -770,6 +871,19 @@ footer {
         white-space: normal; 
         border-right-color: var(--accent-teal); 
     }
+
+    .hero {
+        padding: 40px 15px 30px;
+    }
+
+    .hero-avatar-code-terminal {
+        width: 80%;
+        height: 110px;
+    }
+    .hero-name {
+        font-size: 1.3em;
+    }
+
     .section-title { font-size: 2em; }
     
     .projects-timeline::before { left: 15px; width: 3px; } 
@@ -789,23 +903,57 @@ footer {
         border-top: 2px solid var(--accent-orange); 
     }
     .scroll-container {
-        grid-template-columns: 1fr; /* Одна колонка для свитков на мобильных */
+        grid-template-columns: 1fr; 
     }
 
     .git-graph-container {
-        min-height: 400px; /* Уменьшаем высоту на мобильных */
-        padding: 15px;
+        padding: 15px 10px; 
     }
-    .project-git-node-info {
-        font-size: 0.8em;
-        max-width: 180px;
-        padding: 8px 10px;
+
+    #projectGitGraph .branch-line {
+        stroke-width: 2px; 
     }
+    #projectGitGraph .commit-node {
+        r: 4px; 
+    }
+    #projectGitGraph .commit-node:hover {
+        r: 5px;
+    }
+     #projectGitGraph .commit-node.active-commit-node {
+        r: 5px;
+        stroke-width: 1.5px;
+    }
+
+
     .git-graph-legend {
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
-        margin-left: 20px; /* Отступ для легенды */
+        margin-left: 15px;
+        font-size: 0.8em;
+    }
+    .legend-color {
+        width: 12px;
+        height: 12px;
+    }
+
+    .project-modal-content {
+        padding: 20px 15px;
+    }
+
+    .project-modal-content h3 {
+        font-size: 1.8em;
+    }
+
+    .project-modal-details {
+        flex-direction: column;
+    }
+    .project-modal-image-container {
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+     .project-modal-image-container img {
+        max-height: 250px;
     }
 }
 
@@ -814,8 +962,11 @@ footer {
     .hero h2 { font-size: 1.3em; }
     .hero-avatar-placeholder { width: 100px; height: 100px; font-size: 2.5em; }
     
-    .technique-list li { font-size: 0.85em;}
-    .scroll-category-title { font-size: 1.2em; }
+    /* .technique-list li { font-size: 0.85em;} */ /* This class seems unused directly */
+    /* .scroll-category-title { font-size: 1.2em; } */ /* This class seems unused directly */
+    .skill-card-title { font-size: 1.2em; } /* Adjusted from .scroll-category-title */
+    .tech-item { font-size: 0.8em; } /* Adjusted from .technique-list li or similar */
+
     .info-card .institution {font-size: 1.1em;}
     .language-card h4 { font-size: 1.15em;}
 

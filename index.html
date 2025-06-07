@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;700&family=Rajdhani:wght@400;600&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <!-- Если будете использовать иконки FontAwesome, добавьте ссылку -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <canvas id="starfield"></canvas>
@@ -20,7 +20,11 @@
                 <pre><code id="avatarCodeLines"></code></pre>
                 <div class="avatar-caret"></div>
             </div>
-            <h1>Антон Л.</h1>
+            <p class="hero-name">Антон Л.</p>
+            <h1 class="hero-main-title">
+                <span class="hero-title-backend">BACKEND</span>
+                <span class="hero-title-developer">DEVELOPER</span>
+            </h1>
             <h2 class="typing-effect-title">Java Developer / Творец Цифровых Реальностей</h2>
             <p class="tagline">Кодирую вселенные, одну строку за другой, погружаясь в потоки данных и энергии.</p>
         </header>
@@ -29,25 +33,6 @@
             <h3 class="section-title"><span>Скрижали Древних Техник</span></h3>
             <div class="scroll-container" id="scrollContainer">
                 <!-- Категории навыков будут генерироваться здесь JS -->
-                <!-- Пример структуры генерируемой JS:
-                <div class="skill-scroll">
-                    <div class="scroll-header">
-                        <span class="scroll-icon">📜</span>
-                        <h4 class="scroll-category-title">ИСТОКИ СИЛЫ: ЯЗЫКИ ПРОГРАММИРОВАНИЯ</h4>
-                    </div>
-                    <div class="scroll-content">
-                        <p class="scroll-comment">// Пробуждение Энергии: Основы</p>
-                        <ul class="technique-list">
-                            <li>
-                                <span class="technique-name">Техника Нефритового Императора (Java)</span>
-                                <span class="technique-level">[Уровень: Мастер Великого Дао]</span>
-                                <p class="technique-details">// Владение Сущностями и Потоками</p>
-                            </li>
-                            ...
-                        </ul>
-                    </div>
-                </div>
-                -->
             </div>
         </section>
 
@@ -89,11 +74,9 @@
         <section id="realms" class="content-section project-git-graph-section">
             <h3 class="section-title"><span>Древо Коммитов: Хроники Создания</span></h3>
             <div class="git-graph-container">
-                <svg id="projectGitGraph" width="100%" height="600px">
-                    <!-- Линии и точки будут нарисованы JS -->
+                <svg id="projectGitGraph" width="100%" height="600px"> <!-- Explicit height for SVG -->
                 </svg>
                 <div id="projectGitNodes" class="project-node-annotations">
-                    <!-- Описания проектов (аннотации к узлам) будут добавляться JS -->
                 </div>
             </div>
              <div class="git-graph-legend">
@@ -101,6 +84,7 @@
                 <div class="legend-item"><span class="legend-color active-project-color"></span> Активный проект</div>
                 <div class="legend-item"><span class="legend-color completed-project-color"></span> Завершенный проект</div>
             </div>
+
         </section>
 
         <footer id="nexus" class="content-section">
@@ -109,7 +93,28 @@
             <div class="social-links"></div>
             <p class="copyright">© <span id="currentYear"></span> Антон Л. Вселенные защищены кодом.</p>
         </footer>
-    </div>
+    </div> <!-- Closing .container -->
+
+    <div id="projectModal" class="project-modal">
+                <div class="project-modal-content">
+                    <span class="project-modal-close">×</span>
+                    <h3 id="modalProjectName">Название проекта</h3>
+                    <p class="project-dates" id="modalProjectDates">Даты</p>
+                    <div class="project-modal-details">
+                        <div class="project-modal-image-container">
+                            <img id="modalProjectScreenshot" src="" alt="Скриншот проекта">
+                        </div>
+                        <div class="project-modal-info">
+                            <h4>Описание:</h4>
+                            <p id="modalProjectDescription">Описание...</p>
+                            <h4>Технологии:</h4>
+                            <div id="modalProjectTechnologies" class="tech-pills-container">
+                                <!-- Технологии будут добавлены JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
     <script src="script.js"></script>
 </body>

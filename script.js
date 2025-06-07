@@ -268,72 +268,82 @@ document.getElementById('currentYear').textContent = new Date().getFullYear();
 // --- SKILL SCROLLS LOGIC ---
 const skillsData = [
     {
-        category: "ИСТОКИ СИЛЫ: ЯЗЫКИ ПРОГРАММИРОВАНИЯ",
-        icon: "fas fa-code", //  📜
-        comment: "// Пробуждение Энергии: Основы",
+        category: "ЯЗЫКИ ПРОГРАММИРОВАНИЯ", // Убрал "Истоки силы" для краткости
+        // icon: "fas fa-code", // Старую иконку категории можно оставить или убрать
+        description: "Основные языки, которые я использую для создания цифровых реальностей.",
         techniques: [
-            { name: "Техника Нефритового Императора (Java)", level: "[Уровень Постижения: Мастер Великого Дао]", details: "// Владение Сущностями и Потоками" },
-            { name: "Искусство Тысячи Трансформаций (Kotlin)", level: "[Уровень Постижения: Пробудивший Дух Языка]", details: "// Написание микро-измерений" }
+            { name: "Java", iconClass: "fab fa-java", color: "var(--accent-orange)" }, // Пример FontAwesome
+            { name: "Kotlin", iconClass: "fas fa-code", color: "var(--accent-teal)" }    // Общая иконка, если нет специфичной
         ]
     },
     {
-        category: "КОВКА АРТЕФАКТОВ: ФРЕЙМВОРКИ И БИБЛИОТЕКИ",
-        icon: "fas fa-cogs", // 🛠️
-        comment: "// Создание Микромиров и Управление Энергиями",
+        category: "ФРЕЙМВОРКИ И БИБЛИОТЕКИ",
+        description: "Инструменты для ускорения разработки и построения надежных систем.",
         techniques: [
-            { name: "Домен Весеннего Пробуждения (Spring: Framework, Boot, Web, Data, Cloud)", level: "[Мастерство: Закаленный Дух]" },
-            { name: "Древние Руны Стойкости (Hibernate, JDBC)", level: "[Мастерство: Хранитель Знаний]" },
-            { name: "Эликсиры Сообщений (Apache Kafka)", level: "[Мастерство: Проводник Потоков]" }
+            { name: "Spring Framework", iconClass: "fas fa-leaf", color: "#6DB33F" }, // Примерный цвет Spring
+            { name: "Spring Boot", iconClass: "fas fa-rocket", color: "#6DB33F" },
+            // { name: "Spring Web" }, // Можно объединить или оставить
+            // { name: "Spring Data" },
+            // { name: "Spring Cloud" },
+            { name: "Hibernate", iconClass: "fas fa-database", color: "#BCAAA4"}, // Пример
+            { name: "Apache Kafka", iconClass: "fas fa-stream", color: "#c96bc8" }
         ]
     },
     {
-        category: "СОКРОВИЩНИЦЫ МУДРОСТИ: БАЗЫ ДАННЫХ",
-        icon: "fas fa-database", // 💎
-        comment: "// Хранение Энергии и Мудрости",
+        category: "БАЗЫ ДАННЫХ",
+        description: "Хранилища данных, с которыми я работаю.",
         techniques: [
-            { name: "Храм Каменного Великана (PostgreSQL)", level: "[Посвящение: Страж Древних Таблиц]" },
-            { name: "Пещера Тысячи Ликов (MongoDB)", level: "[Посвящение: Последователь Перемен]" },
-            { name: "Источник Молниеносных Отражений (Redis)", level: "[Посвящение: Ловец Мгновений]" },
-            { name: "Скрижали Эволюции (Liquibase)", level: "[Инструмент: Освоен]" }
+            { name: "PostgreSQL", iconClass: "fas fa-database", color: "#336791" }, // Цвет лого PostgreSQL
+            { name: "MongoDB", iconClass: "fas fa-database", color: "#4DB33D" },    // Цвет лого MongoDB
+            { name: "Redis", iconClass: "fas fa-database", color: "#D82C20" },       // Цвет лого Redis
+            { name: "Liquibase", iconClass: "fas fa-tools", color: "var(--text-secondary)" }
         ]
     },
     {
-        category: "НЕБЕСНЫЕ ВРАТА: API И ПРОТОКОЛЫ",
-        icon: "fas fa-network-wired", // 🌐
+        category: "API И ПРОТОКОЛЫ",
+        description: "Создание и использование интерфейсов для взаимодействия систем.",
         techniques: [
-            { name: "Путь Открытых Врат (REST API)", level: "[Владение: Свободный Полет]" },
-            { name: "Тайный Тракт Скорости (gRPC)", level: "[Знакомство: Первые Шаги]" }
+            { name: "REST API", iconClass: "fas fa-exchange-alt", color: "var(--accent-teal)" },
+            { name: "gRPC", iconClass: "fas fa-bolt", color: "var(--accent-orange)" }
         ]
     },
     {
-        category: "СТРАЖИ ПОРЯДКА: DEVOPS И CI/CD",
-        icon: "fas fa-shield-alt", // 🛡️
+        category: "DEVOPS И CI/CD",
+        description: "Инструменты для автоматизации развертывания и управления инфраструктурой.",
         techniques: [
-            { name: "Формация Контейнерных Духов (Docker, Kubernetes)", level: "[Применение: Активное Развитие]" },
-            { name: "Ритуал Непрерывной Интеграции (Maven, CI/CD)", level: "[Практика: Уверенное Использование]" }
+            { name: "Docker", iconClass: "fab fa-docker", color: "#0db7ed" },
+            { name: "Kubernetes", iconClass: "fas fa-dharmachakra", color: "#326ce5" }, // Пример
+            { name: "Maven", iconClass: "fas fa-cogs", color: "#c71a36" },
+            { name: "CI/CD", iconClass: "fas fa-sync-alt", color: "var(--text-secondary)" }
         ]
     },
     {
-        category: "ОКО ВСЕЛЕННОЙ: МОНИТОРИНГ",
-        icon: "fas fa-eye", // 👁️
+        category: "МОНИТОРИНГ",
+        description: "Отслеживание состояния и производительности приложений.",
         techniques: [
-            { name: "Зеркала Истины (Prometheus, Grafana)", level: "[Артефакты: В Арсенале]" },
-            { name: "Следопыты Эфира (ELK Stack, Jaeger)", level: "[Артефакты: В Арсенале]" }
+            { name: "Prometheus", iconClass: "fas fa-fire", color: "#E6522C" },
+            { name: "Grafana", iconClass: "fas fa-chart-bar", color: "#F4B400" }, // Примерный цвет
+            { name: "ELK Stack", iconClass: "fas fa-search", color: "#00A98F" }, // Пример
+            { name: "Jaeger", iconClass: "fas fa-glasses", color: "#54B6E4" } // Пример
         ]
     },
     {
-        category: "ИСПЫТАНИЯ ДУХА: ТЕСТИРОВАНИЕ",
-        icon: "fas fa-vial", // 🧪
+        category: "ТЕСТИРОВАНИЕ",
+        description: "Обеспечение качества и надежности кода.",
         techniques: [
-            { name: "Долина Чистоты Кода (JUnit, Mockito, Testcontainers, ArchUnit)", level: "[Дисциплина: Непоколебимая]" }
+            { name: "JUnit", iconClass: "fas fa-check-circle", color: "#25A162" }, // Пример
+            { name: "Mockito", iconClass: "fas fa-user-secret", color: "#E39802" }, // Пример
+            { name: "Testcontainers", iconClass: "fas fa-box-open", color: "#0db7ed" },
+            { name: "ArchUnit", iconClass: "fas fa-archway", color: "var(--text-secondary)" }
         ]
     },
     {
-        category: "ИНСТРУМЕНТЫ МУДРЕЦА",
-        icon: "fas fa-scroll", // 📜
+        category: "ИНСТРУМЕНТЫ И МЕТОДОЛОГИИ",
+        description: "Подходы и средства, улучшающие процесс разработки.",
         techniques: [
-            { name: "Хроники Времени (Git)", level: "[Навык: Магистр Ветвей]" },
-            { name: "Путь Гармонии (Agile, Scrum)", level: "[Следование: Принципы Усвоены]" }
+            { name: "Git", iconClass: "fab fa-git-alt", color: "#F1502F" },
+            { name: "Agile", iconClass: "fas fa-users", color: "var(--accent-teal)" }, // Используем текстовые "пилюли"
+            { name: "Scrum", iconClass: "fas fa-retweet", color: "var(--accent-orange)" } // Используем текстовые "пилюли"
         ]
     }
 ];
@@ -358,68 +368,37 @@ function typeTextCharByChar(element, text, callback) {
 
 function createSkillScrolls() {
     if (!scrollContainer) return;
+    scrollContainer.innerHTML = '';
 
     skillsData.forEach((skillCategory, index) => {
-        const scrollDiv = document.createElement('div');
-        scrollDiv.className = 'skill-scroll';
-        scrollDiv.style.animationDelay = `${index * 0.15}s`; // Staggered fade-in
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'skill-card';
+        cardDiv.style.animationDelay = `${index * 0.1}s`;
 
-        let iconHTML = skillCategory.icon.startsWith("fas fa-") ? 
-                       `<i class="${skillCategory.icon} scroll-icon"></i>` : 
-                       `<span class="scroll-icon">${skillCategory.icon || '◈'}</span>`;
+        let techniquesHTML = '<div class="skill-card-tech-list">';
+        skillCategory.techniques.forEach(tech => {
+            if (tech.iconClass) {
+                const styleAttribute = tech.color ? `style="color: ${tech.color}; border-color: ${tech.color};"` : '';
+                techniquesHTML += `
+                    <span class="tech-item tech-item-icon" ${styleAttribute}>
+                        <i class="${tech.iconClass}"></i>
+                        <span class="tech-item-name">${tech.name}</span>
+                    </span>`;
+            } else {
+                const styleAttribute = tech.color ? `style="background-color: ${tech.color};"` : '';
+                techniquesHTML += `<span class="tech-item tech-item-pill" ${styleAttribute}>${tech.name}</span>`;
+            }
+        });
+        techniquesHTML += '</div>';
 
-        let headerHTML = `
-            <div class="scroll-header">
-                ${iconHTML}
-                <h4 class="scroll-category-title">${skillCategory.category}</h4>
+        cardDiv.innerHTML = `
+            <div class="skill-card-header">
+                <h4 class="skill-card-title">${skillCategory.category}</h4>
             </div>
+            ${skillCategory.description ? `<p class="skill-card-description">${skillCategory.description}</p>` : ''}
+            ${techniquesHTML}
         `;
-        
-        let contentHTML = '<div class="scroll-content">';
-        if (skillCategory.comment) {
-            contentHTML += `<p class="scroll-comment">${skillCategory.comment}</p>`;
-        }
-        contentHTML += '<ul class="technique-list">';
-
-        skillCategory.techniques.forEach(tech => {
-            // ID для элементов, которые будут анимированы
-            const nameId = `tech-name-${index}-${skillCategory.techniques.indexOf(tech)}`;
-            const levelId = `tech-level-${index}-${skillCategory.techniques.indexOf(tech)}`;
-            
-            contentHTML += `
-                <li>
-                    <span class="technique-name" id="${nameId}"></span>
-                    <span class="technique-level" id="${levelId}"></span>
-                    ${tech.details ? `<p class="technique-details">${tech.details}</p>` : ''}
-                </li>
-            `;
-        });
-        contentHTML += '</ul></div>';
-        scrollDiv.innerHTML = headerHTML + contentHTML;
-        scrollContainer.appendChild(scrollDiv);
-
-        // Анимация набора текста после добавления элемента в DOM
-        // Запускаем анимацию последовательно для каждой техники в категории
-        let typingDelay = 500 + (index * 200); // Начальная задержка для категории
-        skillCategory.techniques.forEach(tech => {
-            const nameElement = scrollDiv.querySelector(`#tech-name-${index}-${skillCategory.techniques.indexOf(tech)}`);
-            const levelElement = scrollDiv.querySelector(`#tech-level-${index}-${skillCategory.techniques.indexOf(tech)}`);
-            
-            setTimeout(() => {
-                typeTextCharByChar(nameElement, tech.name, () => {
-                    if(levelElement && tech.level) {
-                         typeTextCharByChar(levelElement, tech.level);
-                    }
-                });
-            }, typingDelay);
-            typingDelay += (tech.name.length + (tech.level ? tech.level.length : 0)) * textTypingSpeed + 200; // Задержка до следующей техники
-        });
-
-        // Логика для аккордеона (если нужна)
-        // const header = scrollDiv.querySelector('.scroll-header');
-        // header.addEventListener('click', () => {
-        //     scrollDiv.classList.toggle('open');
-        // });
+        scrollContainer.appendChild(cardDiv);
     });
 }
 
@@ -594,160 +573,200 @@ function startWordUpdater() {
 
 // --- PROJECT GIT GRAPH LOGIC ---
 const projectGitGraphSVG = document.getElementById('projectGitGraph');
-const projectGitNodesContainer = document.getElementById('projectGitNodes');
+
+// Модальное окно
+const projectModal = document.getElementById('projectModal');
+const modalCloseButton = projectModal.querySelector('.project-modal-close');
+const modalProjectName = document.getElementById('modalProjectName');
+const modalProjectDates = document.getElementById('modalProjectDates');
+const modalProjectScreenshot = document.getElementById('modalProjectScreenshot');
+const modalProjectDescription = document.getElementById('modalProjectDescription');
+const modalProjectTechnologies = document.getElementById('modalProjectTechnologies');
 
 const projectsDataGit = [
-    // Проекты должны быть отсортированы по дате НАЧАЛА (самый ранний вверху)
-    // для корректного построения "временной шкалы"
-    { 
-        id: "gates", 
-        name: "Gates of Worlds", 
-        description: "Сайт на PHP и десктоп на Java для изучения языков.",
-        startYear: "2022", 
+    {
+        id: "gates",
+        name: "Gates of Worlds",
+        description: "Сайт на PHP и десктоп на Java для изучения языков через интерактивные истории и упражнения.",
+        startYear: "2022",
         endYear: 2023,
-        branchColor: 'var(--text-secondary)', // Цвет для завершенных
-        nodeColor: 'var(--text-secondary)'
+        branchColor: 'var(--text-secondary)',
+        nodeColor: 'var(--text-secondary)',
+        technologies: ["PHP", "Java", "Swing", "MySQL", "HTML", "CSS"],
+        screenshot: "https://i.ytimg.com/vi/jg8ixdQzrjc/maxresdefault.jpg"
     },
-    { 
-        id: "banking", 
-        name: "Банковское приложение (Aston Soft)", 
-        description: "Разработка модуля профилей клиентов.",
+    {
+        id: "banking",
+        name: "Банковское приложение (Aston Soft)",
+        description: "Разработка модуля профилей клиентов с использованием микросервисной архитектуры. Реализация CRUD операций, работа с Kafka для асинхронных уведомлений.",
         startYear: "2024",
         endYear: null,
         branchColor: 'var(--accent-orange)',
-        nodeColor: 'var(--accent-orange)'
+        nodeColor: 'var(--accent-orange)',
+        technologies: ["Java", "Spring Boot", "Spring Cloud", "PostgreSQL", "Kafka", "Docker"],
+        screenshot: "https://i.pinimg.com/originals/e4/21/50/e4215008df6962d94248502bed11a113.jpg" 
     },
-    { 
-        id: "timelance", 
-        name: "TimeLance", 
-        description: "Приложение для трекинга времени и навыков.",
-        startYear: "2024.10",
+    {
+        id: "timelance",
+        name: "TimeLance",
+        description: "Pet-проект: приложение для трекинга времени, затраченного на различные проекты и навыки, с аналитикой и постановкой целей.",
+        startYear: "2024.10", // Год.месяц (число)
         endYear: null,
         branchColor: 'var(--accent-orange)',
-        nodeColor: 'var(--accent-orange)'
+        nodeColor: 'var(--accent-orange)',
+        technologies: ["Kotlin", "Spring Boot", "React", "PostgreSQL", "MongoDB"],
+        screenshot: "https://avatars.mds.yandex.net/i?id=5c81d040a45718b64112cbb8dc183fb4_l-4079727-images-thumbs&n=13"
     },
-    { 
-        id: "forgeternoul", 
-        name: "Forgeternoul", 
-        description: "Приложение для чтения новелл.",
+    {
+        id: "forgeternoul",
+        name: "Forgeternoul",
+        description: "Pet-проект: платформа для чтения и публикации интерактивных новелл с возможностью выбора сюжетных веток.",
         startYear: "2025.3",
         endYear: null,
         branchColor: 'var(--accent-orange)',
-        nodeColor: 'var(--accent-orange)'
+        nodeColor: 'var(--accent-orange)',
+        technologies: ["Java", "Spring Boot", "Vue.js", "PostgreSQL", "WebSocket"],
+        screenshot: "https://avatars.mds.yandex.net/i?id=a1faccdbb295ee91aec164afc252c02c_l-10471591-images-thumbs&n=13"
     }
 ];
 
 // Сортируем проекты по году начала
-projectsDataGit.sort((a, b) => a.startYear - b.startYear);
+projectsDataGit.sort((a, b) => parseFloat(String(a.startYear).replace(",", ".")) - parseFloat(String(b.startYear).replace(",", ".")));
 
 let currentlyExpandedAnnotationId = null; // Хранит ID текущей раскрытой аннотации
 
+function openProjectModal(project) {
+    modalProjectName.textContent = project.name;
+    modalProjectDates.textContent = `${String(project.startYear).replace(".0", "")}-${project.endYear ? String(project.endYear).replace(".0", "") : 'Н.В.'}`;
+    
+    // Убедимся, что screenshot не null и не пустая строка
+    if (project.screenshot && project.screenshot.trim() !== "" && project.screenshot !== "path/to/your_screenshot.jpg") { // Added check for placeholder
+        modalProjectScreenshot.src = project.screenshot;
+        modalProjectScreenshot.style.display = 'block'; // Показываем, если есть
+        modalProjectScreenshot.alt = `Скриншот проекта ${project.name}`;
+    } else {
+        modalProjectScreenshot.style.display = 'none'; // Скрываем, если нет или это плейсхолдер
+        modalProjectScreenshot.src = ""; // Очищаем src
+        modalProjectScreenshot.alt = "";
+    }
+
+    modalProjectDescription.textContent = project.description;
+
+    modalProjectTechnologies.innerHTML = ''; // Очищаем предыдущие технологии
+    if (project.technologies && project.technologies.length > 0) {
+        project.technologies.forEach(tech => {
+            const techPill = document.createElement('span');
+            techPill.className = 'tech-pill';
+            techPill.textContent = tech;
+            modalProjectTechnologies.appendChild(techPill);
+        });
+    }
+    projectModal.style.display = 'flex'; // Показываем модальное окно
+    document.body.style.overflow = 'hidden'; // Блокируем прокрутку фона
+}
+
+function closeProjectModal() {
+    projectModal.style.display = 'none';
+    document.body.style.overflow = ''; // Восстанавливаем прокрутку
+}
+
+modalCloseButton.addEventListener('click', closeProjectModal);
+projectModal.addEventListener('click', (event) => { // Закрытие по клику на фон
+    if (event.target === projectModal) {
+        closeProjectModal();
+    }
+});
+
 function drawGitGraph() {
-    if (!projectGitGraphSVG || !projectGitNodesContainer) return;
-    projectGitGraphSVG.innerHTML = ''; 
-    projectGitNodesContainer.innerHTML = ''; 
-    currentlyExpandedAnnotationId = null; // Сбрасываем при перерисовке
+    if (!projectGitGraphSVG) return;
+    projectGitGraphSVG.innerHTML = '';
 
     const svgWidth = projectGitGraphSVG.clientWidth;
-    const svgHeight = projectGitGraphSVG.clientHeight;
-    const padding = 40; 
-    const nodeRadius = 6;
+    let svgHeight = projectGitGraphSVG.clientHeight; // Изначальная высота
 
-    const minYear = Math.min(...projectsDataGit.map(p => p.startYear));
-    const currentVirtualYear = new Date().getFullYear() + (new Date().getMonth() / 12) + 0.5; 
-    const maxYear = Math.max(currentVirtualYear, ...projectsDataGit.map(p => p.endYear || currentVirtualYear));
+    // Адаптация для мобильных
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+        svgHeight = Math.max(400, svgHeight * 0.7); // Уменьшаем высоту на мобильных, но не меньше 400px
+        projectGitGraphSVG.setAttribute('height', `${svgHeight}px`);
+    } else {
+        // Ensure height is explicitly set for desktop if it relies on CSS that might change
+        projectGitGraphSVG.setAttribute('height', `600px`); 
+    }
+
+
+    const padding = isMobile ? 25 : 40;
+    const nodeRadius = isMobile ? 4 : 6;
+
+    // Преобразуем startYear и endYear в числовые значения для расчетов
+    const projects = projectsDataGit.map(p => ({
+        ...p,
+        numericStartYear: parseFloat(String(p.startYear).replace(",", ".")),
+        numericEndYear: p.endYear ? parseFloat(String(p.endYear).replace(",", ".")) : null
+    }));
+
+    const minYear = Math.min(...projects.map(p => p.numericStartYear));
+    const currentVirtualYear = new Date().getFullYear() + (new Date().getMonth() / 12) + 0.5;
+    const maxYear = Math.max(currentVirtualYear, ...projects.map(p => p.numericEndYear || currentVirtualYear));
     const yearSpan = maxYear - minYear || 1;
 
-    const mainBranchX = padding + 30; 
-    
+    const mainBranchX = padding + (isMobile ? 15 : 30);
+
     const mainLine = createSvgLine(mainBranchX, padding, mainBranchX, svgHeight - padding, 'var(--accent-teal)', 'main-branch');
     projectGitGraphSVG.appendChild(mainLine);
     animateLineDrawing(mainLine, 1000);
 
     const branchSlots = [];
-    const branchSlotWidth = Math.max(50, (svgWidth - mainBranchX - padding * 2) / 3);
+    const numSlots = isMobile ? 2 : 3; // Меньше слотов на мобильных
+    const branchSlotWidth = Math.max(isMobile ? 35 : 50, (svgWidth - mainBranchX - padding * 2) / numSlots);
 
 
-    projectsDataGit.forEach((project, index) => {
-        const projectStartY = padding + ((project.startYear - minYear) / yearSpan) * (svgHeight - 2 * padding);
+    projects.forEach((project, index) => {
+        const projectStartY = padding + ((project.numericStartYear - minYear) / yearSpan) * (svgHeight - 2 * padding);
         let projectEndY;
-        if (project.endYear) {
-            projectEndY = padding + ((project.endYear - minYear) / yearSpan) * (svgHeight - 2 * padding);
+        if (project.numericEndYear) {
+            projectEndY = padding + ((project.numericEndYear - minYear) / yearSpan) * (svgHeight - 2 * padding);
         } else {
-            projectEndY = svgHeight - padding; 
+            projectEndY = svgHeight - padding;
         }
 
         let slotIndex = 0;
-        while(branchSlots[slotIndex] && project.startYear < branchSlots[slotIndex].end) {
+        while (branchSlots[slotIndex] && project.numericStartYear < branchSlots[slotIndex].end) {
             slotIndex++;
         }
-        if (!branchSlots[slotIndex] || slotIndex > 2) { 
-             slotIndex = (index % 3); 
-             if(!branchSlots[slotIndex]) branchSlots[slotIndex] = { busy: false, end: 0 };
+        if (!branchSlots[slotIndex] || slotIndex >= numSlots) {
+            slotIndex = (index % numSlots);
+            if (!branchSlots[slotIndex]) branchSlots[slotIndex] = { busy: false, end: 0 };
         }
-        
-        const projectBranchX = mainBranchX + (slotIndex + 1) * branchSlotWidth * 0.8 + 30; 
-        branchSlots[slotIndex].end = project.endYear || maxYear +1; 
+
+        const projectBranchX = mainBranchX + (slotIndex + 1) * branchSlotWidth * (isMobile ? 0.9 : 0.8) + (isMobile ? 15 : 30);
+        branchSlots[slotIndex].end = project.numericEndYear || maxYear + 1;
 
 
         const startCommitMain = createSvgCircle(mainBranchX, projectStartY, nodeRadius, 'var(--accent-teal)', 'commit-node main-commit');
         projectGitGraphSVG.appendChild(startCommitMain);
 
-        const branchOffLine = createSvgLine(mainBranchX, projectStartY, projectBranchX, projectStartY + 20, project.branchColor, `project-branch-${project.endYear ? 'completed' : 'active'}`);
+        const branchOffLine = createSvgLine(mainBranchX, projectStartY, projectBranchX, projectStartY + (isMobile ? 15 : 20), project.branchColor, `project-branch-${project.endYear ? 'completed' : 'active'}`);
         projectGitGraphSVG.appendChild(branchOffLine);
         animateLineDrawing(branchOffLine, 500, index * 300 + 500);
 
 
-        const projectLine = createSvgLine(projectBranchX, projectStartY + 20, projectBranchX, projectEndY, project.branchColor, `project-branch-${project.endYear ? 'completed' : 'active'}`);
+        const projectLine = createSvgLine(projectBranchX, projectStartY + (isMobile ? 15 : 20), projectBranchX, projectEndY, project.branchColor, `project-branch-${project.endYear ? 'completed' : 'active'}`);
         projectGitGraphSVG.appendChild(projectLine);
         animateLineDrawing(projectLine, 1000, index * 300 + 800);
 
-        const projectCommitY = projectStartY + 40; 
-        const projectCommitNode = createSvgCircle(projectBranchX, projectCommitY, nodeRadius + 2, project.nodeColor, `commit-node project-commit-${project.endYear ? 'completed' : 'active'}`);
-        projectCommitNode.id = `commit-node-${project.id}`; 
+        const projectCommitY = projectStartY + (isMobile ? 25 : 40);
+        const projectCommitNode = createSvgCircle(projectBranchX, projectCommitY, nodeRadius + (isMobile ? 1 : 2), project.nodeColor, `commit-node project-commit-${project.endYear ? 'completed' : 'active'}`);
+        projectCommitNode.id = `commit-node-${project.id}`;
         projectGitGraphSVG.appendChild(projectCommitNode);
 
-        const annotation = document.createElement('div');
-        annotation.className = 'project-git-node-info';
-        annotation.id = `annotation-${project.id}`; 
-        
-        let annotationLeft = projectBranchX + nodeRadius * 2 + 15;
-        const annotationInitialWidth = 200; 
-        if (annotationLeft + annotationInitialWidth > svgWidth - padding) { 
-            annotationLeft = projectBranchX - nodeRadius * 2 - 15 - annotationInitialWidth; 
-        }
-
-        annotation.style.left = `${annotationLeft}px`;
-        annotation.style.top = `${projectCommitY - 15}px`; 
-        
-        annotation.innerHTML = `
-            <div class="node-summary">
-                <h4>${project.name}</h4>
-                <span class="project-dates">${project.startYear}-${project.endYear ? project.endYear.toFixed(0).replace(".0","") : 'Н.В.'}</span>
-            </div>
-            <p class="node-description">${project.description}</p>
-        `;
-        projectGitNodesContainer.appendChild(annotation);
-        
-        setTimeout(() => {
-            annotation.classList.add('visible');
-        }, index * 300 + 1200);
-
-        // Обработчик клика на SVG узел (коммит)
         projectCommitNode.addEventListener('click', () => {
-            toggleAnnotation(annotation.id, projectCommitNode.id);
+            openProjectModal(project); // Открываем модальное окно с данными этого проекта
         });
-        // Обработчик клика на саму аннотацию (на ее видимую часть)
-        const summaryPart = annotation.querySelector('.node-summary');
-        if (summaryPart) {
-            summaryPart.addEventListener('click', () => {
-                toggleAnnotation(annotation.id, projectCommitNode.id);
-            });
-        }
 
 
         if (project.endYear) {
-            const mergeY = Math.min(projectEndY + 20, svgHeight - padding);
+            const mergeY = Math.min(projectEndY + (isMobile ? 15 : 20), svgHeight - padding);
             const mergeLine = createSvgLine(projectBranchX, projectEndY, mainBranchX, mergeY, project.branchColor, `project-branch-${project.endYear ? 'completed' : 'active'}`);
             projectGitGraphSVG.appendChild(mergeLine);
             animateLineDrawing(mergeLine, 500, index * 300 + 1800);
@@ -756,37 +775,6 @@ function drawGitGraph() {
             projectGitGraphSVG.appendChild(endCommitMain);
         }
     });
-}
-
-function toggleAnnotation(annotationId, commitNodeId) {
-    const annotationToToggle = document.getElementById(annotationId);
-    const commitNodeToToggle = document.getElementById(commitNodeId);
-
-    // Сначала убираем класс 'expanded' и 'active-commit-node' у всех, если есть текущий раскрытый
-    if (currentlyExpandedAnnotationId && currentlyExpandedAnnotationId !== annotationId) {
-        const previouslyExpandedAnnotation = document.getElementById(currentlyExpandedAnnotationId);
-        const previouslyActiveCommit = document.getElementById(currentlyExpandedAnnotationId.replace('annotation-', 'commit-node-'));
-        if (previouslyExpandedAnnotation) {
-            previouslyExpandedAnnotation.classList.remove('expanded');
-        }
-        if (previouslyActiveCommit) {
-            previouslyActiveCommit.classList.remove('active-commit-node');
-        }
-    }
-
-    // Переключаем состояние для текущего элемента
-    if (annotationToToggle) {
-        annotationToToggle.classList.toggle('expanded');
-        if (commitNodeToToggle) {
-            commitNodeToToggle.classList.toggle('active-commit-node');
-        }
-
-        if (annotationToToggle.classList.contains('expanded')) {
-            currentlyExpandedAnnotationId = annotationId;
-        } else {
-            currentlyExpandedAnnotationId = null; // Если закрыли текущий
-        }
-    }
 }
 
 function createSvgLine(x1, y1, x2, y2, strokeColor, className) {
@@ -839,11 +827,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(typeHeroTitle, 70); 
             }
         }
-        if (window.getComputedStyle(heroTitleElement).animationName !== 'none') {
-            typeHeroTitle();
+        // Check if animation is 'none' which might happen if styles are not fully loaded
+        // or if prefers-reduced-motion is active and handled this way.
+        // A more robust check might be needed if animation can be dynamically disabled.
+        if (window.getComputedStyle(heroTitleElement).animationName && window.getComputedStyle(heroTitleElement).animationName !== 'none') {
+            // Only start typing if blinkCaret animation is active
+             // Ensure animation 'typingTitle' will also run by not setting text content immediately
         } else {
+            // If animations are off (e.g. prefers-reduced-motion or style issue), just set the text
             heroTitleElement.textContent = originalText; 
-            heroTitleElement.style.borderRight = 'none';
+            heroTitleElement.style.borderRight = 'none'; // Hide caret if not animating
         }
     }
     
@@ -874,7 +867,10 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimerGitGraph);
         resizeTimerGitGraph = setTimeout(() => {
-            drawGitGraph(); 
+            // Re-check clientHeight for SVG as it might be dynamically set
+            // or ensure it's correctly handled within drawGitGraph
+            projectGitGraphSVG.clientHeight; // Reading to ensure reflow if needed
+            drawGitGraph();
         }, 250);
     });
 });
